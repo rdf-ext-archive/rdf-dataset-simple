@@ -1,0 +1,37 @@
+{
+  "name": "rdf-dataset-simple",
+  "version": "0.9.0",
+  "description": "A simple array based implementation of the RDFJS Dataset",
+  "main": "SimpleDataset.js",
+  "scripts": {
+    "lint": "standard",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rdf-ext/rdf-dataset-simple.git"
+  },
+  "keywords": [
+    "rdf",
+    "rdfjs",
+    "rdf-ext",
+    "dataset",
+    "simple"
+  ],
+  "author": "Thomas Bergwinkl <bergi@axolotlfarm.org> (https://www.bergnet.org/people/bergi/card#me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rdf-ext/rdf-dataset-simple/issues"
+  },
+  "homepage": "https://github.com/rdf-ext/rdf-dataset-simple",
+  "dependencies": {
+    "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#v1",
+    "rdf-source": "git://github.com/rdf-ext/rdf-source.git#v1"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#v1",
+    "standard": "^7.0.1"
+  },
+  "readmeFilename": "README.md"
+}
