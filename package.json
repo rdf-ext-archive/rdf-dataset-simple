@@ -25,12 +25,12 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-dataset-simple",
   "dependencies": {
-    "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#v1",
-    "rdf-source": "git://github.com/rdf-ext/rdf-source.git#v1"
+    "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#develop",
+    "rdf-source": "git://github.com/rdf-ext/rdf-source.git#develop"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
-    "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#v1",
+    "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#develop",
     "standard": "^7.0.1"
   },
   "readmeFilename": "README.md"
