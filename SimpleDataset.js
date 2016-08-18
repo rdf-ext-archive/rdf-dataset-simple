@@ -171,7 +171,7 @@ class SimpleDataset {
 
   toString () {
     return this._quads.map((quad) => {
-      return quad.toCanonical() + ' .'
+      return quad.toCanonical()
     }).join ('\n')
   }
 
