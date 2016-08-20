@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-dataset-simple",
   "dependencies": {
+    "babelify": "^7.3.0",
     "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#develop",
     "rdf-source": "git://github.com/rdf-ext/rdf-source.git#develop"
   },
@@ -32,6 +33,18 @@
     "mocha": "^2.4.5",
     "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#develop",
     "standard": "^7.0.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   },
   "readmeFilename": "README.md"
 }
