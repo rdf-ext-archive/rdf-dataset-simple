@@ -4,8 +4,7 @@ const normalize = require('rdf-normalize')
 const Source = require('rdf-source')
 
 class SimpleDataset {
-  constructor (factory, quads) {
-    this._factory = factory
+  constructor (quads) {
     this._quads = []
 
     if (quads) {
@@ -34,11 +33,11 @@ class SimpleDataset {
   }
 
   clone () {
-    return new SimpleDataset(this._factory, this._quads)
+    return new SimpleDataset(this._quads)
   }
 
   difference (other) {
-    return new SimpleDataset(this._factory, this.filter((quad) => {
+    return new SimpleDataset(this.filter((quad) => {
       return !other.includes(quad)
     }))
   }
@@ -54,7 +53,7 @@ class SimpleDataset {
   }
 
   filter (callback) {
-    return new SimpleDataset(this._factory, this._quads.filter((quad) => {
+    return new SimpleDataset(this._quads.filter((quad) => {
       return callback(quad, this)
     }))
   }
@@ -86,13 +85,13 @@ class SimpleDataset {
   }
 
   intersection (other) {
-    return new SimpleDataset(this._factory, this.filter((quad) => {
+    return new SimpleDataset(this.filter((quad) => {
       return other.includes(quad)
     }))
   }
 
   map (callback) {
-    return new SimpleDataset(this._factory, this._quads.map((quad) => {
+    return new SimpleDataset(this._quads.map((quad) => {
       return callback(quad, this)
     }))
   }
@@ -104,7 +103,7 @@ class SimpleDataset {
   }
 
   match (subject, predicate, object, graph) {
-    return new SimpleDataset(this._factory, this.filter((quad) => {
+    return new SimpleDataset(this.filter((quad) => {
       if (subject && !quad.subject.equals(subject)) {
         return false
       }
@@ -126,7 +125,7 @@ class SimpleDataset {
   }
 
   merge (other) {
-    return (new SimpleDataset(this._factory, this._quads)).addAll(other)
+    return (new SimpleDataset(this._quads)).addAll(other)
   }
 
   remove(quad) {
@@ -181,8 +180,8 @@ class SimpleDataset {
     }).join ('\n')
   }
 
-  static import (factory, stream) {
-    let dataset = new SimpleDataset(factory)
+  static import (stream) {
+    let dataset = new SimpleDataset()
 
     return dataset.import(stream)
   }

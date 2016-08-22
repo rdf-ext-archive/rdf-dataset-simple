@@ -3,18 +3,8 @@
 /* global describe, it */
 const assert = require('assert')
 const rdf = require('rdf-data-model')
-const SimpleDataset = require('..')
+const Dataset = require('..')
 const EventEmitter = require('events').EventEmitter
-
-class Dataset extends SimpleDataset {
-  constructor (quads) {
-    super(rdf, quads)
-  }
-
-  static import (stream) {
-    return super.import(rdf, stream)
-  }
-}
 
 function simpleFilter (subject, predicate, object, graph) {
   return function (quad) {
