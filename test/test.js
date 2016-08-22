@@ -268,7 +268,23 @@ describe('SimpleDataset', () => {
     assert.equal(quad2.equals(intersection._quads[0]), true)
   })
 
-  it('.map should call the callback function for every quad and return an array that contains the return values', () => {
+  it('.map should call the callback function for every quad and return a Dataset that contains the new quads', () => {
+    let quad = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+      rdf.literal('a'))
+
+    let mappedQuad = rdf.quad(quad.subject, quad.predicate, rdf.literal('a1'))
+
+    let dataset = new Dataset([quad])
+
+    let mappedDataset = dataset.map((quad) => {
+      return rdf.quad(quad.subject, quad.predicate, rdf.literal(quad.object.value + '1'))
+    })
+
+    assert.equal(mappedDataset.length, 1)
+    assert.equal(mappedQuad.equals(mappedDataset._quads[0]), true)
+  })
+
+  it('.mapToArray should call the callback function for every quad and return an array that contains the return values', () => {
     let quad1 = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
       rdf.literal('a'))
 
@@ -277,7 +293,7 @@ describe('SimpleDataset', () => {
 
     let dataset = new Dataset([quad1, quad2])
 
-    let objects = dataset.map((quad) => {
+    let objects = dataset.mapToArray((quad) => {
       return quad.object.value
     })
 

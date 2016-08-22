@@ -92,6 +92,12 @@ class SimpleDataset {
   }
 
   map (callback) {
+    return new SimpleDataset(this._factory, this._quads.map((quad) => {
+      return callback(quad, this)
+    }))
+  }
+
+  mapToArray (callback) {
     return this._quads.map((quad) => {
       return callback(quad, this)
     })
