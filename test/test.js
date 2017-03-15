@@ -508,24 +508,4 @@ describe('SimpleDataset', () => {
 
     assert.equal(dataset.toString(), '<http://example.org/subject> <http://example.org/predicate> _:' + blankNode.value + ' .', true)
   })
-
-  it ('Dataset.import should import quads from stream and create a new dataset', () => {
-    let stream = new EventEmitter()
-    let quad1 = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
-      rdf.literal('a'))
-
-    let quad2 = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
-      rdf.literal('b'))
-
-    let result = Dataset.import(stream)
-
-    stream.emit('data', quad1)
-    stream.emit('data', quad2)
-    stream.emit('end')
-
-    return result.then((dataset) => {
-      assert.equal(quad1.equals(dataset._quads[0]), true)
-      assert.equal(quad2.equals(dataset._quads[1]), true)
-    })
-  })
 })

@@ -4,8 +4,16 @@ const normalize = require('rdf-normalize')
 const Source = require('rdf-source')
 
 class SimpleDataset {
-  constructor (quads) {
+  constructor (quads, factory) {
     this._quads = []
+    
+    if (factory && factory.dataset) {
+      this._datasetFactory = factory.dataset  
+    } else {
+      this._datasetFactory = (quads) => {
+        return new SimpleDataset(quads, this._datasetFactory)
+      }
+    }
 
     if (quads) {
       this.addAll(quads)
@@ -33,11 +41,11 @@ class SimpleDataset {
   }
 
   clone () {
-    return new SimpleDataset(this._quads)
+    return this._datasetFactory(this._quads)
   }
 
   difference (other) {
-    return new SimpleDataset(this.filter((quad) => {
+    return this._datasetFactory(this.filter((quad) => {
       return !other.includes(quad)
     }))
   }
@@ -53,7 +61,7 @@ class SimpleDataset {
   }
 
   filter (callback) {
-    return new SimpleDataset(this._quads.filter((quad) => {
+    return this._datasetFactory(this._quads.filter((quad) => {
       return callback(quad, this)
     }))
   }
@@ -66,11 +74,11 @@ class SimpleDataset {
 
   import (stream) {
     return new Promise ((resolve, reject) => {
-      stream.on('end', () => {
+      stream.once('end', () => {
         resolve(this)
       })
 
-      stream.on('error', reject)
+      stream.once('error', reject)
 
       stream.on('data', (quad) => {
         this.add(quad)
@@ -85,13 +93,13 @@ class SimpleDataset {
   }
 
   intersection (other) {
-    return new SimpleDataset(this.filter((quad) => {
+    return this._datasetFactory(this.filter((quad) => {
       return other.includes(quad)
     }))
   }
 
   map (callback) {
-    return new SimpleDataset(this._quads.map((quad) => {
+    return this._datasetFactory(this._quads.map((quad) => {
       return callback(quad, this)
     }))
   }
@@ -103,7 +111,7 @@ class SimpleDataset {
   }
 
   match (subject, predicate, object, graph) {
-    return new SimpleDataset(this.filter((quad) => {
+    return this._datasetFactory(this.filter((quad) => {
       if (subject && !quad.subject.equals(subject)) {
         return false
       }
@@ -125,7 +133,7 @@ class SimpleDataset {
   }
 
   merge (other) {
-    return (new SimpleDataset(this._quads)).addAll(other)
+    return (this._datasetFactory(this._quads)).addAll(other)
   }
 
   remove(quad) {
@@ -178,12 +186,6 @@ class SimpleDataset {
     return this._quads.map((quad) => {
       return quad.toCanonical()
     }).join ('\n')
-  }
-
-  static import (stream) {
-    let dataset = new SimpleDataset()
-
-    return dataset.import(stream)
   }
 }
 
