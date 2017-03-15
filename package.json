@@ -5,7 +5,7 @@
   "main": "SimpleDataset.js",
   "scripts": {
     "lint": "standard",
-    "test": "mocha"
+    "test": "npm run lint && mocha"
   },
   "repository": {
     "type": "git",
@@ -25,26 +25,13 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-dataset-simple",
   "dependencies": {
-    "babelify": "^7.3.0",
     "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#develop",
     "rdf-source": "git://github.com/rdf-ext/rdf-source.git#develop"
   },
   "devDependencies": {
-    "mocha": "^2.4.5",
+    "mocha": "^3.2.0",
     "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#develop",
-    "standard": "^7.0.1"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
+    "standard": "^9.0.1"
   },
   "readmeFilename": "README.md"
 }
