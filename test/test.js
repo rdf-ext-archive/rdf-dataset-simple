@@ -1,6 +1,5 @@
-'use strict'
-
 /* global describe, it */
+
 const assert = require('assert')
 const rdf = require('rdf-data-model')
 const Dataset = require('..')
@@ -53,7 +52,7 @@ describe('SimpleDataset', () => {
 
     assert.equal(dataset.length, 1)
   })
-  
+
   it('.add should add triples to the graph', () => {
     let quad = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
       rdf.literal('object'))
@@ -189,7 +188,7 @@ describe('SimpleDataset', () => {
     assert.deepEqual(objects, ['a', 'b'])
   })
 
-  it ('.import should import quads from stream', () => {
+  it('.import should import quads from stream', () => {
     let stream = new EventEmitter()
     let dataset = new Dataset()
     let quad1 = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
@@ -210,7 +209,7 @@ describe('SimpleDataset', () => {
     })
   })
 
-  it ('.import should forward stream errors', () => {
+  it('.import should forward stream errors', () => {
     let stream = new EventEmitter()
     let dataset = new Dataset()
 
@@ -221,7 +220,7 @@ describe('SimpleDataset', () => {
     return new Promise((resolve, reject) => {
       result.then(() => {
         reject(new Error('no error thrown'))
-      }).catch((err) => {
+      }).catch(() => {
         resolve()
       })
     })
@@ -433,7 +432,7 @@ describe('SimpleDataset', () => {
     let dataset = new Dataset([quad1, quad2])
 
     assert.equal(dataset.removeMatches(null, null, null, rdf.namedNode('http://example.org/graph3')).length, 2)
-    assert.equal(dataset.removeMatches(null, null, null, rdf.namedNode('http://example.org/graph2')) .length, 1)
+    assert.equal(dataset.removeMatches(null, null, null, rdf.namedNode('http://example.org/graph2')).length, 1)
     assert.equal(dataset.removeMatches(null, null, null, rdf.namedNode('http://example.org/graph1')).length, 0)
   })
 

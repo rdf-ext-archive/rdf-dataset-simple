@@ -1,14 +1,12 @@
-'use strict'
-
 const normalize = require('rdf-normalize')
 const Source = require('rdf-source')
 
 class SimpleDataset {
   constructor (quads, factory) {
     this._quads = []
-    
+
     if (factory && factory.dataset) {
-      this._datasetFactory = factory.dataset  
+      this._datasetFactory = factory.dataset
     } else {
       this._datasetFactory = (quads) => {
         return new SimpleDataset(quads, this._datasetFactory)
@@ -73,7 +71,7 @@ class SimpleDataset {
   }
 
   import (stream) {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       stream.once('end', () => {
         resolve(this)
       })
@@ -136,7 +134,7 @@ class SimpleDataset {
     return (this._datasetFactory(this._quads)).addAll(other)
   }
 
-  remove(quad) {
+  remove (quad) {
     let index = this._quads.findIndex((other) => {
       return other.equals(quad)
     })
@@ -185,7 +183,7 @@ class SimpleDataset {
   toString () {
     return this._quads.map((quad) => {
       return quad.toCanonical()
-    }).join ('\n')
+    }).join('\n')
   }
 }
 
