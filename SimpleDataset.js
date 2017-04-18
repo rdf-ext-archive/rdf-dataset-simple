@@ -1,4 +1,3 @@
-const normalize = require('rdf-normalize')
 const Source = require('rdf-source')
 
 class SimpleDataset {
@@ -46,10 +45,6 @@ class SimpleDataset {
     return this._datasetFactory(this.filter((quad) => {
       return !other.includes(quad)
     }))
-  }
-
-  equals (other) {
-    return this.toCanonical() === other.toCanonical()
   }
 
   every (callback) {
@@ -164,10 +159,6 @@ class SimpleDataset {
     return this._quads.slice()
   }
 
-  toCanonical () {
-    return normalize(this)
-  }
-
   toStream () {
     let stream = new Source()
 
@@ -178,12 +169,6 @@ class SimpleDataset {
     stream.push(null)
 
     return stream
-  }
-
-  toString () {
-    return this._quads.map((quad) => {
-      return quad.toCanonical()
-    }).join('\n')
   }
 }
 

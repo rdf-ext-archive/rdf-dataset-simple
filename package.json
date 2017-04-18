@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-dataset-simple",
   "dependencies": {
-    "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#develop",
     "rdf-source": "git://github.com/rdf-ext/rdf-source.git#develop"
   },
   "devDependencies": {

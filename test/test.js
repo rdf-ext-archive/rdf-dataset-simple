@@ -23,7 +23,6 @@ describe('SimpleDataset', () => {
     assert.equal(typeof dataset.addAll, 'function')
     assert.equal(typeof dataset.clone, 'function')
     assert.equal(typeof dataset.difference, 'function')
-    assert.equal(typeof dataset.equals, 'function')
     assert.equal(typeof dataset.every, 'function')
     assert.equal(typeof dataset.filter, 'function')
     assert.equal(typeof dataset.forEach, 'function')
@@ -37,9 +36,7 @@ describe('SimpleDataset', () => {
     assert.equal(typeof dataset.removeMatches, 'function')
     assert.equal(typeof dataset.some, 'function')
     assert.equal(typeof dataset.toArray, 'function')
-    assert.equal(typeof dataset.toCanonical, 'function')
     assert.equal(typeof dataset.toStream, 'function')
-    assert.equal(typeof dataset.toString, 'function')
   })
 
   it('.length should contain the number of triples in the graph', () => {
@@ -122,24 +119,6 @@ describe('SimpleDataset', () => {
 
     assert.equal(difference._quads.length, 1)
     assert.equal(quad1.equals(difference._quads[0]), true)
-  })
-
-  it('.equals should compare the other graph for equality', () => {
-    let quad1a = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
-      rdf.blankNode())
-
-    let quad1b = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
-      rdf.blankNode())
-
-    let quad2 = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
-      rdf.literal('c'))
-
-    let dataset1a = new Dataset([quad1a])
-    let dataset1b = new Dataset([quad1b])
-    let dataset2 = new Dataset([quad2])
-
-    assert.equal(dataset1a.equals(dataset1b), true)
-    assert.equal(dataset1a.equals(dataset2), false)
   })
 
   it('.every should return true if every quad pass the filter test', () => {
@@ -463,15 +442,6 @@ describe('SimpleDataset', () => {
     assert(quad2.equals(array[1]))
   })
 
-  it('.toCanonical should return the canonical representation', () => {
-    let quad = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
-      rdf.blankNode())
-
-    let dataset = new Dataset([quad])
-
-    assert.equal(dataset.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> _:c14n0 .\n', true)
-  })
-
   it('.toStream should return a stream which emits all quads of the dataset', () => {
     let quad = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
       rdf.blankNode())
@@ -496,15 +466,5 @@ describe('SimpleDataset', () => {
         output.push(quad)
       })
     })
-  })
-
-  it('.toString should return the string represetation', () => {
-    let blankNode = rdf.blankNode()
-    let quad = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
-      blankNode)
-
-    let dataset = new Dataset([quad])
-
-    assert.equal(dataset.toString(), '<http://example.org/subject> <http://example.org/predicate> _:' + blankNode.value + ' .', true)
   })
 })
