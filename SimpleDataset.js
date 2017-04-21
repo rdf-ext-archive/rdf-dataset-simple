@@ -1,4 +1,4 @@
-const Source = require('rdf-source')
+const Readable = require('readable-stream')
 
 class SimpleDataset {
   constructor (quads, factory) {
@@ -160,13 +160,16 @@ class SimpleDataset {
   }
 
   toStream () {
-    let stream = new Source()
+    let stream = new Readable({
+      objectMode: true,
+      read: () => {
+        this.forEach((quad) => {
+          stream.push(quad)
+        })
 
-    this.forEach((quad) => {
-      stream.push(quad)
+        stream.push(null)
+      }
     })
-
-    stream.push(null)
 
     return stream
   }

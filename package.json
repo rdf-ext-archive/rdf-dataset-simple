@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-dataset-simple",
   "dependencies": {
-    "rdf-source": "git://github.com/rdf-ext/rdf-source.git#develop"
+    "readable-stream": "^2.2.9"
   },
   "devDependencies": {
     "mocha": "^3.2.0",
