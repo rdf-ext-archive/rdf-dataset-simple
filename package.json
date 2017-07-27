@@ -2,10 +2,9 @@
   "name": "rdf-dataset-simple",
   "version": "0.9.0",
   "description": "A simple array based implementation of the RDFJS Dataset",
-  "main": "SimpleDataset.js",
+  "main": "index.js",
   "scripts": {
-    "lint": "standard",
-    "test": "npm run lint && mocha"
+    "test": "standard && mocha"
   },
   "repository": {
     "type": "git",
@@ -31,6 +30,5 @@
     "mocha": "^3.2.0",
     "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#develop",
     "standard": "^9.0.1"
-  },
-  "readmeFilename": "README.md"
+  }
 }
